@@ -2,7 +2,7 @@ import { useState } from "react";
 import { ethers } from "ethers";
 const { Configuration, OpenAIApi } = require("openai");
 import { FaSpinner } from "react-icons/fa";
-import { abiProcessor, addressProcessor, url, prompts } from "./constants.js";
+import { abiProcessor, addressProcessor, url, prompts } from "../constants.js";
 
 class CustomFormData extends FormData {
   getHeaders() {

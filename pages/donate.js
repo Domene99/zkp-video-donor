@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ethers } from "ethers";
-import { abiDonor, addressDonor, addressProcessor } from "./constants.js";
+import { abiDonor, addressDonor, addressProcessor } from "../constants.js";
 
 function DonatePage() {
   const [swearCount, setSwearCount] = useState(100);
