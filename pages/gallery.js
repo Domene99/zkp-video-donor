@@ -5,16 +5,14 @@ import "video.js/dist/video-js.css";
 import { abiProcessor, addressProcessor, url, prompts } from "../constants.js";
 import {
   Box,
-  SimpleGrid,
   Heading,
   Center,
   Button,
   Card,
   CardBody,
   Stack,
-  Tooltip,
 } from "@chakra-ui/react";
-import truncateEthAddress from "truncate-eth-address";
+import { DonorList } from "@/components/donorList.jsx";
 
 const Video = (props) => {
   const videoNode = useRef(null);
@@ -112,34 +110,32 @@ export default function Gallery({
         <>
           <Heading>Upload Video</Heading>
           <br />
-          <SimpleGrid columns={[2, null, 3]} spacing="40px">
+          <Stack spacing="40px">
             {videos.map((video, index) => (
-              <Card>
-                <CardBody>
+              <Card
+                direction={{ base: "column", sm: "row" }}
+                overflow="hidden"
+                variant="outline"
+              >
+                <Center w={{ base: "20%", sm: "20%" }}>
                   <Video {...play(video)} description={sponsors(video)} />
-
-                  <Stack mt="6" spacing="3">
-                    <Heading size="xs" textTransform="uppercase">
-                      Donors:
-                    </Heading>
-                    {video.donors.map((donor, index) => (
-                      <Tooltip label={donor}>
-                        <Center
-                          key={index}
-                          bg="gray.100"
-                          px="4"
-                          py="1"
-                          rounded="md"
-                        >
-                          {truncateEthAddress(donor)}
-                        </Center>
-                      </Tooltip>
-                    ))}
+                </Center>
+                <CardBody>
+                  <Heading size="md" textTransform="uppercase">
+                    Video Title
+                  </Heading>
+                  <br />
+                  <Stack spacing="3">
+                    {video.donors.length > 0 ? (
+                      <DonorList donors={video.donors} />
+                    ) : (
+                      <>There are no donors yet</>
+                    )}
                   </Stack>
                 </CardBody>
               </Card>
             ))}
-          </SimpleGrid>
+          </Stack>
           {videos.length > 9 && (
             <Button
               className="next-button"
