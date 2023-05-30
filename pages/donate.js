@@ -1,15 +1,25 @@
 import { useState } from "react";
 import { ethers } from "ethers";
 import { abiDonor, addressDonor, addressProcessor } from "../constants.js";
+import {
+  Box,
+  Input,
+  FormControl,
+  Button,
+  FormLabel,
+  Heading,
+  VStack,
+  StackDivider,
+  Center,
+} from "@chakra-ui/react";
 
-function DonatePage() {
+function DonatePage({ web3, setWeb3, setOwnerAddress, ownerAddress }) {
   const [swearCount, setSwearCount] = useState(100);
   const [topicKeys, setTopicKeys] = useState(null);
   const [topicValues, setTopicValues] = useState(null);
   const [safetyScore, setSafetyScore] = useState(0);
   const [language, setLanguage] = useState("");
   const [amount, setAmount] = useState(0);
-  const [web3, setWeb3] = useState(null);
   const [txHash, setTxHash] = useState("");
   const [txDone, setTxDone] = useState("");
 
@@ -111,104 +121,83 @@ function DonatePage() {
     const tx_hash = donateToVideo();
   }
 
-  const connectToMetamask = async () => {
-    if (typeof window.ethereum !== "undefined") {
-      try {
-        await ethereum.request({ method: "eth_requestAccounts" });
-      } catch (error) {
-        console.log(error);
-      }
-      const accounts = await ethereum.request({ method: "eth_accounts" });
-      setWeb3(accounts);
-    } else {
-      alert("Please install MetaMask");
-    }
-  };
-
   return (
-    <div className="container">
-      <h1 className="title">Donate Form</h1>
-      <div className={"topbar"}>
-        {!web3 && (
-          <button className={"metamaskButton"} onClick={connectToMetamask}>
-            Connect to MetaMask
-          </button>
-        )}
-      </div>
-      {web3 && (
+    <Box p={4} mx="150">
+      <Heading>Donate Form</Heading>
+      {web3 ? (
         <form onSubmit={handleSubmit} className="form">
-          <label>
-            What's the maximum number of swear words?
-            <input
-              type="number"
-              value={swearCount}
-              onChange={handleSwearCountChange}
-              placeholder="10"
-              className="input"
-            />
-          </label>
-          <br />
-          <label>
-            What topics does the video need to talk about?
-            <input
-              type="text"
-              // value={topicKeys}
-              onChange={handleTopicKeysChange}
-              placeholder='["technology", "science", "slavery"]'
-              className="input"
-            />
-          </label>
-          <br />
-          <label>
-            What must be the sentiment of these topics (same order)?
-            <input
-              type="text"
-              // value={topicValues}
-              onChange={handleTopicValuesChange}
-              placeholder='["positive", "positive", "negative"]'
-              className="input"
-            />
-          </label>
-          <br />
-          <label>
-            What's the minimum brand safety score (0-100)?
-            <input
-              type="number"
-              value={safetyScore}
-              onChange={handleSafetyScoreChange}
-              placeholder="50"
-              className="input"
-              min="0"
-              max="100"
-            />
-          </label>
-          <br />
-          <label>
-            What language should the video be in?
-            <input
-              type="text"
-              value={language}
-              onChange={handleLanguageChange}
-              placeholder="English"
-              className="input"
-            />
-          </label>
-          <br />
-          <label>
-            How much do you wish to donate?
-            <input
-              type="number"
-              value={amount}
-              onChange={handleAmountChange}
-              placeholder="15"
-              className="input"
-            />
-          </label>
-          <br />
-          <button type="submit" className="button">
-            Donate
-          </button>
+          <VStack spacing={4}>
+            <FormControl isRequired>
+              <FormLabel>Maximum number of swear words?</FormLabel>
+              <Input
+                type="number"
+                value={swearCount}
+                onChange={handleSwearCountChange}
+                placeholder="10"
+              />
+            </FormControl>
+
+            <FormControl isRequired>
+              <FormLabel>
+                What topics does the video need to talk about?
+              </FormLabel>
+              <Input
+                type="text"
+                onChange={handleTopicKeysChange}
+                placeholder='["technology", "science", "slavery"]'
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <FormLabel>
+                What must be the sentiment of these topics (same order)?
+              </FormLabel>
+              <Input
+                type="text"
+                onChange={handleTopicValuesChange}
+                placeholder='["positive", "positive", "negative"]'
+              />
+            </FormControl>
+
+            <FormControl isRequired>
+              <FormLabel>
+                What's the minimum brand safety score (0-100)?
+              </FormLabel>
+              <Input
+                type="number"
+                value={safetyScore}
+                onChange={handleSafetyScoreChange}
+                placeholder="50"
+                min="0"
+                max="100"
+              />
+            </FormControl>
+
+            <FormControl isRequired>
+              <FormLabel>What language should the video be in?</FormLabel>
+              <Input
+                type="text"
+                value={language}
+                onChange={handleLanguageChange}
+                placeholder="English"
+              />
+            </FormControl>
+
+            <FormControl isRequired>
+              <FormLabel>How much do you wish to donate?</FormLabel>
+              <Input
+                type="number"
+                value={amount}
+                onChange={handleAmountChange}
+                placeholder="15"
+              />
+            </FormControl>
+            <Button type="submit" className="button">
+              Donate
+            </Button>
+          </VStack>
         </form>
+      ) : (
+        <Center minH={"500px"}> Please connect to metamask</Center>
       )}
       <div className="text">
         {txDone ? (
@@ -220,7 +209,7 @@ function DonatePage() {
           </p>
         ) : null}
       </div>
-    </div>
+    </Box>
   );
 }
 

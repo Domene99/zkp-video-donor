@@ -3,6 +3,15 @@ import { ethers } from "ethers";
 const { Configuration, OpenAIApi } = require("openai");
 import { FaSpinner } from "react-icons/fa";
 import { abiProcessor, addressProcessor, url, prompts } from "../constants.js";
+import {
+  Box,
+  Input,
+  FormControl,
+  Spinner,
+  FormLabel,
+  Heading,
+  Center,
+} from "@chakra-ui/react";
 
 class CustomFormData extends FormData {
   getHeaders() {
@@ -17,11 +26,14 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-export default function Upload() {
-  const [web3, setWeb3] = useState(null);
+export default function Upload({
+  web3,
+  setWeb3,
+  setOwnerAddress,
+  ownerAddress,
+}) {
   const [videoFile, setVideoFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [ownerAddress, setOwnerAddress] = useState("");
   const [videoUploaded, setVideoUploaded] = useState(false);
   const [txHash, setTxHash] = useState("");
   const [txDone, setTxDone] = useState(false);
@@ -289,29 +301,22 @@ export default function Upload() {
   };
 
   return (
-    <div className={"container"}>
-      <h1 className={"title"}>Upload Video</h1>
-      <div className={"topbar"}>
-        {!web3 && (
-          <button className={"metamaskButton"} onClick={connectToMetamask}>
-            Connect to MetaMask
-          </button>
-        )}
-      </div>
-      {web3 && (
+    <Box p={4} mx="150">
+      <Heading>Upload Video</Heading>
+      {web3 ? (
         <div className={"content"}>
-          <label htmlFor="videoFile" className={"label"}>
-            Choose a video file:
-          </label>
-          <input
-            type="file"
-            id="videoFile"
-            name="videoFile"
-            accept="video/mp4"
-            onChange={handleFileChange}
-            className={"input"}
-          />
-          {isLoading && <FaSpinner />}
+          <FormControl isRequired>
+            <FormLabel>Choose a video file:</FormLabel>
+            <Input
+              type="file"
+              id="videoFile"
+              name="videoFile"
+              accept="video/mp4"
+              onChange={handleFileChange}
+              className={"input"}
+            />
+          </FormControl>
+          {isLoading && <Spinner />}
           <div className="text">
             {txDone ? (
               <p>
@@ -325,7 +330,9 @@ export default function Upload() {
             ) : null}
           </div>
         </div>
+      ) : (
+        <Center minH={"500px"}> Please connect to metamask</Center>
       )}
-    </div>
+    </Box>
   );
 }
