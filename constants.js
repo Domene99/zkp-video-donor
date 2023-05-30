@@ -1,80 +1,37 @@
-export const addressProcessor = "0x6e77Ef93161aA26c99f2df85E88C9F3dA42A9911";
+export const addressProcessor = "0x40CD623530A20b3558DD0Ada5554790859a9716d";
 export const abiProcessor = [
   {
     inputs: [
       {
-        internalType: "address payable",
-        name: "_owner",
+        internalType: "uint256",
+        name: "index",
+        type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "donor",
         type: "address",
       },
-      {
-        internalType: "string",
-        name: "_player_uri",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "_playback_uri",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "_swear_count",
-        type: "uint256",
-      },
-      {
-        internalType: "string[]",
-        name: "_topicKeys",
-        type: "string[]",
-      },
-      {
-        internalType: "string[]",
-        name: "_topicValues",
-        type: "string[]",
-      },
-      {
-        internalType: "uint256",
-        name: "_safety_score",
-        type: "uint256",
-      },
-      {
-        internalType: "string[]",
-        name: "_languages",
-        type: "string[]",
-      },
     ],
-    name: "addVideo",
+    name: "addDonor",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
   },
   {
-    inputs: [],
-    name: "getBalance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
     inputs: [
       {
-        internalType: "address",
-        name: "video_owner",
-        type: "address",
+        internalType: "uint256",
+        name: "index",
+        type: "uint256",
       },
     ],
-    name: "getBalanceOf",
+    name: "getDonors",
     outputs: [
       {
-        internalType: "uint256",
+        internalType: "address[]",
         name: "",
-        type: "uint256",
+        type: "address[]",
       },
     ],
     stateMutability: "view",
@@ -94,44 +51,6 @@ export const abiProcessor = [
         internalType: "string[]",
         name: "",
         type: "string[]",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "index",
-        type: "uint256",
-      },
-    ],
-    name: "getPlaybackUri",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "index",
-        type: "uint256",
-      },
-    ],
-    name: "getPlayerUri",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string",
       },
     ],
     stateMutability: "view",
@@ -193,6 +112,11 @@ export const abiProcessor = [
             internalType: "string[]",
             name: "languages",
             type: "string[]",
+          },
+          {
+            internalType: "address[]",
+            name: "donors",
+            type: "address[]",
           },
         ],
         internalType: "struct VideoProcessing.Video[]",
@@ -331,6 +255,11 @@ export const abiProcessor = [
             name: "languages",
             type: "string[]",
           },
+          {
+            internalType: "address[]",
+            name: "donors",
+            type: "address[]",
+          },
         ],
         internalType: "struct VideoProcessing.Video",
         name: "",
@@ -372,48 +301,9 @@ export const abiProcessor = [
     stateMutability: "view",
     type: "function",
   },
-  {
-    inputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256",
-      },
-    ],
-    name: "processed_videos",
-    outputs: [
-      {
-        internalType: "address payable",
-        name: "owner",
-        type: "address",
-      },
-      {
-        internalType: "string",
-        name: "player_uri",
-        type: "string",
-      },
-      {
-        internalType: "string",
-        name: "playback_uri",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "swear_count",
-        type: "uint256",
-      },
-      {
-        internalType: "uint256",
-        name: "safety_score",
-        type: "uint256",
-      },
-    ],
-    stateMutability: "view",
-    type: "function",
-  },
 ];
 
-export const addressDonor = "0x9D7Ec754940Edf99c146Ef3Ce7A980574B518d11";
+export const addressDonor = "0x85189eD108519bDF01e0A47962bb2a8E09AF6184";
 export const abiDonor = [
   {
     inputs: [
@@ -458,6 +348,11 @@ export const abiDonor = [
             internalType: "string[]",
             name: "languages",
             type: "string[]",
+          },
+          {
+            internalType: "address[]",
+            name: "donors",
+            type: "address[]",
           },
         ],
         internalType: "struct VideoProcessing.Video",

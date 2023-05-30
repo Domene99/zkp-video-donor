@@ -11,9 +11,15 @@ export default function Home() {
     router.push("/donate");
   }
 
+  function handleGalleryClick() {
+    router.push("/gallery");
+  }
+
   return (
     <div>
       <h1>Welcome to my website</h1>
+      <p>Click on the button below to go to the video gallery:</p>
+      <button onClick={handleGalleryClick}>Gallery</button>
       <p>Click on the button below to go to the upload page:</p>
       <button onClick={handleUploadClick}>Upload</button>
       <p>Click on the button below to go to the donate page:</p>
