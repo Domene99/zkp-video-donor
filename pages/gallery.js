@@ -21,28 +21,9 @@ const Video = (props) => {
     }
   }, []);
 
-  const handleExpand = () => {
-    setExpanded(!expanded);
-  };
-
-  const limitContent = (content) => {
-    if (content.length <= 100 || expanded) {
-      return content;
-    }
-    return content.substring(0, 100) + "...";
-  };
-
   return (
     <div data-vjs-player>
       <video ref={videoNode} className="video-js"></video>
-      <div className="video-description">
-        <p>{limitContent(props.description)}</p>
-        {props.description.length > 100 && (
-          <button onClick={handleExpand}>
-            {expanded ? "Show Less" : "Show More"}
-          </button>
-        )}
-      </div>
     </div>
   );
 };
@@ -101,7 +82,7 @@ export default function Home() {
   const sponsors = (video) => {
     let text = "Donors:\n";
     for (let i = 0; i < video.donors.length; i++) {
-      text += video.donors[i] + ",\n";
+      text += video.donors[i] + "\n";
     }
     return text;
   };
