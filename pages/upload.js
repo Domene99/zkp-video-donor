@@ -253,6 +253,8 @@ export default function Upload({
     }
   };
 
+  const [title, setTitle] = useState("");
+  
   const handleFileChange = async (event) => {
     setIsLoading(true);
     const file = event.target.files[0];
@@ -300,11 +302,24 @@ export default function Upload({
     setIsLoading(false);
   };
 
+  function handleTitleChange(e) {
+    setTitle(e.target.value);
+  }
+
   return (
     <Box p={4} mx="150">
       <Heading>Upload Video</Heading>
       {web3 ? (
         <div className={"content"}>
+          <FormControl isRequired>
+            <FormLabel>Video title</FormLabel>
+            <Input
+              type="text"
+              value={title}
+              onChange={handleTitleChange}
+              placeholder="English"
+            />
+          </FormControl>
           <FormControl isRequired>
             <FormLabel>Choose a video file:</FormLabel>
             <Input
