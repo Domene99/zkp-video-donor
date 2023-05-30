@@ -35,13 +35,12 @@ body {
 }
 
 .title {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 3rem;
   margin-top: -20rem;
   margin-bottom: 2rem;
   text-align: center;
 }
-
 
 .topbar {
   display: flex;
@@ -88,6 +87,29 @@ body {
 }
 
 .text {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-align: center;
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    4,
+    1fr
+  ); /* Adjust the number of columns as needed */
+  gap: 100px; /* Adjust the spacing between videos as needed */
+}
+
+.video-item {
+  width: 100%;
+}
+
+.video-js {
+  width: 100%;
+}
+
+.next-button {
+  display: flex;
+  justify-content: flex-end; /* Move the button to the right */
+  margin-top: 20px; /* Add spacing between the button and the previous row of videos */
 }

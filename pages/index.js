@@ -13,6 +13,10 @@ export default function Home() {
     router.push("/donate");
   }
 
+  function handleGalleryClick() {
+    router.push("/gallery");
+  }
+
   return (
     <Box bg="tomato" p={4} mx="150" color="white">
       <div>
