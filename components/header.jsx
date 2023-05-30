@@ -15,7 +15,7 @@ import React from "react";
 
 import truncateEthAddress from "truncate-eth-address";
 
-const Links = ["Home", "Donate", "Upload"];
+const Links = ["Home", "Gallery", "Donate", "Upload"];
 
 const NavLink = ({ children }) => (
   <Link
