@@ -5,6 +5,7 @@ pragma solidity ^0.8.0;
 contract VideoProcessing {
     struct Video {
         address payable owner;
+        string title;
         string player_uri;
         string playback_uri;
         uint swear_count;
@@ -12,12 +13,14 @@ contract VideoProcessing {
         string[] topicValues;
         uint safety_score;
         string[] languages;
+        address[] donors;
     }
 
     Video[] public processed_videos;
 
     function addVideo(
         address payable _owner,
+        string memory _title,
         string memory _player_uri,
         string memory _playback_uri,
         uint _swear_count,
@@ -47,13 +50,15 @@ contract VideoProcessing {
         // Create a new video object and add it to the processed_videos array
         Video memory newVideo = Video({
             owner: _owner,
+            title: _title,
             player_uri: _player_uri,
             playback_uri: _playback_uri,
             swear_count: _swear_count,
             topicKeys: topicKeys,
             topicValues: topicValues,
             safety_score: _safety_score,
-            languages: languages
+            languages: languages,
+            donors: new address[](0)
         });
 
         processed_videos.push(newVideo);
@@ -78,6 +83,15 @@ contract VideoProcessing {
 
     function getVideo(uint index) public view returns (Video memory) {
         return processed_videos[index];
+    }
+
+    function getDonors(uint index) public view returns (address[] memory) {
+        return processed_videos[index].donors;
+    }
+
+    function addDonor(uint index, address donor) public {
+        require(index < processed_videos.length, "Invalid video index");
+        processed_videos[index].donors.push(donor);
     }
 
     function getVideoOwner(uint index) public view returns (address payable) {

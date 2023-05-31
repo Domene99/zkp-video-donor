@@ -59,6 +59,9 @@ export default function Upload({
       res_list = text.substring(1, text.length - 1).split(", ");
     }
 
+    if (res_list.length == 0) {
+      return ["English"];
+    }
     return res_list;
   };
 
@@ -231,6 +234,8 @@ export default function Upload({
       try {
         const transactionResponse = await contract.addVideo(
           address,
+          // title,
+          "Video Title",
           uris["player"],
           uris["playback"],
           features["swears"],

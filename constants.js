@@ -1,4 +1,4 @@
-export const addressProcessor = "0x40CD623530A20b3558DD0Ada5554790859a9716d";
+export const addressProcessor = "0xBBFCC481884C234e639F5C114b37d0211F510F02";
 export const abiProcessor = [
   {
     inputs: [
@@ -16,6 +16,91 @@ export const abiProcessor = [
     name: "addDonor",
     outputs: [],
     stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address payable",
+        name: "_owner",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "_title",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_player_uri",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "_playback_uri",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "_swear_count",
+        type: "uint256",
+      },
+      {
+        internalType: "string[]",
+        name: "_topicKeys",
+        type: "string[]",
+      },
+      {
+        internalType: "string[]",
+        name: "_topicValues",
+        type: "string[]",
+      },
+      {
+        internalType: "uint256",
+        name: "_safety_score",
+        type: "uint256",
+      },
+      {
+        internalType: "string[]",
+        name: "_languages",
+        type: "string[]",
+      },
+    ],
+    name: "addVideo",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getBalance",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "video_owner",
+        type: "address",
+      },
+    ],
+    name: "getBalanceOf",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
     type: "function",
   },
   {
@@ -60,6 +145,44 @@ export const abiProcessor = [
     inputs: [
       {
         internalType: "uint256",
+        name: "index",
+        type: "uint256",
+      },
+    ],
+    name: "getPlaybackUri",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "index",
+        type: "uint256",
+      },
+    ],
+    name: "getPlayerUri",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
         name: "startIndex",
         type: "uint256",
       },
@@ -77,6 +200,11 @@ export const abiProcessor = [
             internalType: "address payable",
             name: "owner",
             type: "address",
+          },
+          {
+            internalType: "string",
+            name: "title",
+            type: "string",
           },
           {
             internalType: "string",
@@ -222,6 +350,11 @@ export const abiProcessor = [
           },
           {
             internalType: "string",
+            name: "title",
+            type: "string",
+          },
+          {
+            internalType: "string",
             name: "player_uri",
             type: "string",
           },
@@ -301,9 +434,53 @@ export const abiProcessor = [
     stateMutability: "view",
     type: "function",
   },
+  {
+    inputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    name: "processed_videos",
+    outputs: [
+      {
+        internalType: "address payable",
+        name: "owner",
+        type: "address",
+      },
+      {
+        internalType: "string",
+        name: "title",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "player_uri",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "playback_uri",
+        type: "string",
+      },
+      {
+        internalType: "uint256",
+        name: "swear_count",
+        type: "uint256",
+      },
+      {
+        internalType: "uint256",
+        name: "safety_score",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
 ];
 
-export const addressDonor = "0x85189eD108519bDF01e0A47962bb2a8E09AF6184";
+export const addressDonor = "0x0Ed450a6f9d835c4465c1878FE5D9e9f0464d73b";
 export const abiDonor = [
   {
     inputs: [
@@ -313,6 +490,11 @@ export const abiDonor = [
             internalType: "address payable",
             name: "owner",
             type: "address",
+          },
+          {
+            internalType: "string",
+            name: "title",
+            type: "string",
           },
           {
             internalType: "string",

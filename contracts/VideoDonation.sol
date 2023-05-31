@@ -13,9 +13,12 @@ interface VideoProcessing {
     function getTopicKeys(uint index) external view returns (string[] memory);
     function getTopicValues(uint index) external view returns (string[] memory);
     function getVideoCount() external view returns(uint);
+    function getDonors(uint index) external view returns (address[] memory);
+    function addDonor(uint index, address donor) external;
 
     struct Video {
         address payable owner;
+        string title;
         string player_uri;
         string playback_uri;
         uint swear_count;
@@ -23,6 +26,7 @@ interface VideoProcessing {
         string[] topicValues;
         uint safety_score;
         string[] languages;
+        address[] donors;
     }
 }
 
@@ -40,6 +44,7 @@ contract VideoDonation {
                 owner.transfer(msg.value);
                 uint newBalance = address(this).balance;
                 require(newBalance == initialBalance - msg.value, "Transfer failed");
+                videos.addDonor(i, msg.sender);
                 break;
             }
         }

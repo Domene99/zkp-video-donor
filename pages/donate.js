@@ -125,7 +125,7 @@ function DonatePage({ web3, setWeb3, setOwnerAddress, ownerAddress }) {
     <Box p={4} mx="150">
       <Heading>Donate Form</Heading>
       {web3 ? (
-        <form onSubmit={handleSubmit} className="form">
+        <form className="form">
           <VStack spacing={4}>
             <FormControl isRequired>
               <FormLabel>Maximum number of swear words?</FormLabel>
@@ -191,7 +191,7 @@ function DonatePage({ web3, setWeb3, setOwnerAddress, ownerAddress }) {
                 placeholder="15"
               />
             </FormControl>
-            <Button type="submit" className="button">
+            <Button type="submit" className="button" onClick={handleSubmit}>
               Donate
             </Button>
           </VStack>
