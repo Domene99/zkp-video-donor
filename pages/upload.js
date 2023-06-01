@@ -32,6 +32,7 @@ export default function Upload({
   setOwnerAddress,
   ownerAddress,
 }) {
+  const [title, setTitle] = useState("Default Title");
   const [videoFile, setVideoFile] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [videoUploaded, setVideoUploaded] = useState(false);
@@ -234,8 +235,7 @@ export default function Upload({
       try {
         const transactionResponse = await contract.addVideo(
           address,
-          // title,
-          "Video Title",
+          title,
           uris["player"],
           uris["playback"],
           features["swears"],
@@ -258,8 +258,6 @@ export default function Upload({
     }
   };
 
-  const [title, setTitle] = useState("");
-  
   const handleFileChange = async (event) => {
     setIsLoading(true);
     const file = event.target.files[0];
