@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { ethers } from "ethers";
+import { ethers, BigNumber } from "ethers";
 import videojs from "video.js";
 import "video.js/dist/video-js.css";
 import { abiProcessor, addressProcessor, url, prompts } from "../constants.js";
@@ -11,13 +11,14 @@ import {
   Card,
   CardBody,
   Stack,
+  Divider,
+  Grid,
+  Text,
 } from "@chakra-ui/react";
-import { DonorList } from "@/components/donorList.jsx";
-
+import { VideoCardFooter } from "../components/videoCardFooter";
 const Video = (props) => {
   const videoNode = useRef(null);
   const [player, setPlayer] = useState(null);
-  const [expanded, setExpanded] = useState(false); // Track expanded content
 
   useEffect(() => {
     if (videoNode.current) {
@@ -40,14 +41,21 @@ const Video = (props) => {
 
 export default function Gallery({
   web3,
-  setWeb3,
-  setOwnerAddress,
-  ownerAddress,
 }) {
   const [videos, setVideos] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [hasMoreVideos, setHasMoreVideos] = useState(false);
   const numElements = 20;
+
+  function getColor(score) {
+    if (score <= 40) {
+      return "red.400";
+    } else if (score <= 80) {
+      return "orange.400";
+    } else {
+      return "green.400";
+    }
+  }
 
   // Fetch video data from the smart contract
   const fetchVideos = async () => {
@@ -84,7 +92,7 @@ export default function Gallery({
     return {
       fill: true,
       fluid: true,
-      autoplay: true,
+      autoplay: false,
       controls: true,
       preload: "metadata",
       sources: [
@@ -108,33 +116,38 @@ export default function Gallery({
     <Box p={4} mx="150">
       {web3 ? (
         <>
-          <Heading>Upload Video</Heading>
+          <Heading>Gallery</Heading>
           <br />
           <Stack spacing="40px">
-            {videos.map((video, index) => (
-              <Card
-                direction={{ base: "column", sm: "row" }}
-                overflow="hidden"
-                variant="outline"
-              >
-                <Center w={{ base: "20%", sm: "20%" }}>
-                  <Video {...play(video)} description={sponsors(video)} />
-                </Center>
-                <CardBody>
-                  <Heading size="md" textTransform="uppercase">
-                    Video Title
+            <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+              {videos.map((video, index) => (
+                <Card w="100%">
+                  <Heading size="md" px={5} py={3}>
+                    {video.title}
                   </Heading>
-                  <br />
-                  <Stack spacing="3">
-                    {video.donors.length > 0 ? (
-                      <DonorList donors={video.donors} />
-                    ) : (
-                      <>There are no donors yet</>
-                    )}
-                  </Stack>
-                </CardBody>
-              </Card>
-            ))}
+                  <Center>
+                    <Video {...play(video)} description={sponsors(video)} />
+                  </Center>
+                  <CardBody>
+                    <Text>Safety Score:</Text>
+                    <Heading
+                      size="xl"
+                      textTransform="uppercase"
+                      color={getColor(video.safety_score)}
+                    >
+                      {BigNumber.from(video.safety_score).toString()}
+                    </Heading>
+                  </CardBody>
+
+                  <Divider />
+                  <VideoCardFooter
+                    languages={video.languages}
+                    donors={video.donors}
+                    topics={[video.topicKeys, video.topicValues]}
+                  />
+                </Card>
+              ))}
+            </Grid>
           </Stack>
           {videos.length > 9 && (
             <Button
